@@ -1,0 +1,109 @@
+&star_job
+
+      show_log_description_at_start = .false.
+      save_model_when_terminate = .true.
+      save_model_filename = 'final.mod'
+
+      !change_D_omega_flag = .true.
+      !new_D_omega_flag = .true.
+
+
+/ ! end of star_job namelist
+
+
+&kap
+
+      Zbase = 0.014
+
+    use_Type2_opacities = .true.
+
+    kap_file_prefix = 'a09' ! Set of opacity tables for higher temperature, hydrogen-rich conditions.
+    kap_CO_prefix = 'a09_co' ! Set of opacity tables for higher temperature, hydrogen-poor/metal-rich conditions.
+    kap_lowT_prefix = 'lowT_fa05_a09p' !Set of opacity tables for lower temperatures.
+
+    !AESOPUS_filename = 'AESOPUS_AGSS09.h5'
+
+/ ! end of kap namelist
+
+
+&controls
+
+      ! check for retries as part of test_suite
+      ! you can/should delete this for use outside of test_suite
+      ! max_number_retries = 80
+
+      !max_model_number = 1000
+      energy_eqn_option = 'dedt'
+      use_gold2_tolerances = .false.
+      use_gold_tolerances = .false.
+
+      extra_terminal_output_file = 'log1' 
+      log_directory = 'LOGS1_1.2m1_0.5m2_1000p_0.5beta_0.0delta_0.0gamma_acclim1e-3_newacc_temmink_yamaguchi_mlt1.9_withmoi_meshdeltacoeff0.25acc'
+      !log_directory = 'LOGS1_0.95m1_0.9475m2_790p_0.05beta_acclim1e-4_newacc_lowen2'
+
+      profile_interval = 50
+      history_interval = 1
+      terminal_interval = 10
+      write_header_frequency = 10
+      
+      varcontrol_target = 1d-3
+
+      MLT_option = 'Henyey'
+      use_ledoux_criterion = .true.
+      alpha_semiconvection = 0.1d0
+      mixing_length_alpha = 1.9
+
+      cool_wind_full_on_T = 9.99d9
+      hot_wind_full_on_T = 1d10
+      cool_wind_RGB_scheme = 'Reimers'
+      cool_wind_AGB_scheme = 'Blocker'
+      RGB_to_AGB_wind_switch = 1d-4
+      Reimers_scaling_factor = 0.1d0  
+      Blocker_scaling_factor = 0.2d0
+
+      !am_nu_visc_factor = 0
+      !am_D_mix_factor = 0.0333333333333333d0
+      !D_DSI_factor = 0
+      !D_SH_factor = 1
+      !D_SSI_factor = 1
+      !D_ES_factor = 1
+      !D_GSF_factor = 1
+      !D_ST_factor = 1
+
+      !convergence_ignore_equL_residuals = .true.
+
+      ! stop when the center mass fraction of h1 drops below this limit
+      !xa_central_lower_limit_species(1) = 'h1'
+      !xa_central_lower_limit(1) = 1d-2
+
+      delta_lgL_He_limit = 0.01d0
+
+      overshoot_scheme(1) = 'step' !jermyn et al 2022
+    overshoot_zone_type(1) = 'any'
+    overshoot_zone_loc(1) = 'core'
+    overshoot_bdy_loc(1) = 'any'
+    overshoot_f(1) = 0.129
+    overshoot_f0(1) = 0.0129
+    overshoot_D0(1) = 0d0
+    overshoot_Delta0(1) = 1d0
+    overshoot_scheme(2) = 'exponential'
+    overshoot_zone_type(2) = 'nonburn'
+    overshoot_zone_loc(2) = 'shell'
+    overshoot_bdy_loc(2) = 'any'
+    overshoot_f(2) = 0.0174
+    overshoot_f0(2) = 0.00174
+    overshoot_D0(2) = 0d0
+    overshoot_Delta0(2) = 1d0
+
+    !log_tau_function_weight = 50
+    !mesh_delta_coeff = 0.25
+    !time_delta_coeff = 0.3
+      
+
+/ ! end of controls namelist
+
+
+&pgstar
+         
+
+/ ! end of pgstar namelist
